@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./pages/index.css" />
+    <title>Around the U.S.</title>
+  </head>
+  <body class="page">
+    <div class="page__container">
+      <header class="header">
+        <img class="header__logo" src="/images/logo.png" alt="website logo" />
+      </header>
+
+      <main class="content">
+        <section class="profile">
+          <img
+            class="profile__image"
+            src="/images/profile pic.png"
+            alt="profile picture"
+          />
+          <div class="profile__info">
+            <div class="profile__info-title">
+              <h1 class="profile__name">Jacques Cousteau</h1>
+              <button class="profile__edit-button" type="button"></button>
+            </div>
+            <p class="profile__occupation">Explorer</p>
+          </div>
+
+          <button class="profile__add-button" type="button"></button>
+        </section>
+        <!--END OF PROFILE SECTION-->
+
+        <section class="photo-feed">
+          <div class="photo-feed__card">
+            <img
+              class="photo-feed__image"
+              src="./images/photo grid/Yosemite Valley.png"
+              alt="/Yosemite Valley"
+            />
+
+            <div class="photo-feed__card-caption">
+              <div class="photo-feed__text">Yosemite Valley</div>
+              <button class="photo-feed__card-button" type="button"></button>
+            </div>
+          </div>
+
+          <div class="photo-feed__card">
+            <img
+              class="photo-feed__image"
+              src="./images/photo grid/Lake Louise.png"
+              alt="Lake Louise"
+            />
+            <div class="photo-feed__card-caption">
+              <div class="photo-feed__text">Lake Louise</div>
+              <button class="photo-feed__card-button" type="button"></button>
+            </div>
+          </div>
+
+          <div class="photo-feed__card">
+            <img
+              class="photo-feed__image"
+              src="./images/photo grid/Bald Mountains.png"
+              alt="Bald Mountains"
+            />
+            <div class="photo-feed__card-caption">
+              <div class="photo-feed__text">Bald Mountains</div>
+              <button class="photo-feed__card-button" type="button"></button>
+            </div>
+          </div>
+
+          <div class="photo-feed__card">
+            <img
+              class="photo-feed__image"
+              src="./images/photo grid/Latemar.png"
+              alt="Latemar"
+            />
+            <div class="photo-feed__card-caption">
+              <div class="photo-feed__text">Latemar</div>
+              <button class="photo-feed__card-button" type="button"></button>
+            </div>
+          </div>
+
+          <div class="photo-feed__card">
+            <img
+              class="photo-feed__image"
+              src="./images/photo grid/Vanoise Nationa.png"
+              alt="Vanoise Nationa"
+            />
+            <div class="photo-feed__card-caption">
+              <div class="photo-feed__text">Vanoise Nationa...</div>
+              <button class="photo-feed__card-button" type="button"></button>
+            </div>
+          </div>
+
+          <div class="photo-feed__card">
+            <img
+              class="photo-feed__image"
+              src="./images/photo grid/Lago di Braies.png"
+              alt="Vanoise Nationa"
+            />
+            <div class="photo-feed__card-caption">
+              <div class="photo-feed__text">Lago di Braies</div>
+              <button class="photo-feed__card-button" type="button"></button>
+            </div>
+          </div>
+        </section>
+
+        <!--END OF PHOTO FEED SECTION-->
+      </main>
+      <footer class="footer">
+        <div class="footer__copyright">© 2021 Around The U.S.</div>
+      </footer>
+    </div>
+    <section class="popup">
+      <div class="popup__window">
+        <h2 class="popup__window-title">Edit profile</h2>
+        <input
+          type="text"
+          class="popup__fullName"
+          name="fullName"
+          placeholder="Full Name"
+        />
+        <input
+          type="text"
+          class="popup__occupation"
+          name="occupation"
+          placeholder="Occupation"
+        />
+        <button type="button" class="popup__save-button">Save</button>
+      </div>
+    </section>
+  </body>
+</html>

@@ -1,0 +1,18 @@
+.popup__save-button {
+  width: 358px;
+  height: 50.15px;
+  background-image: url(../../../images/button/save.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  background-color: transparent;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #ffffff;
+  font-family: Inter;
+  align-self: center;
+  margin: 48px auto;
+}

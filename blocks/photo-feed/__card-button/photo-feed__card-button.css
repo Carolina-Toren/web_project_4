@@ -1,0 +1,12 @@
+.photo-feed__card-button {
+  background-image: url(../../../images/button/like\ button.svg);
+  background-color: transparent;
+  width: 21px;
+  height: 19px;
+  background-position: center;
+  border: none;
+  padding: 0;
+  background-size: 100%;
+  cursor: pointer;
+  margin-right: 18px;
+}
