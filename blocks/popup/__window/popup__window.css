@@ -1,11 +1,18 @@
 .popup__window {
-  width: 430px;
+  max-width: 430px;
   height: 330px;
   background-color: #ffffff;
   margin: 195px auto;
   display: flex;
   flex-direction: column;
-
   border-radius: 10px;
   position: relative;
+}
+
+@media screen and (max-width: 530px) {
+  .popup__window {
+    max-width: 282px;
+    width: 100%;
+    min-height: 322px;
+  }
 }
