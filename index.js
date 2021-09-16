@@ -23,3 +23,10 @@ editButton.addEventListener("click", () => {
   inputOccupation.value = profileJob.textContent;
   openPopup();
 });
+
+popupSubmitButton.addEventListener("click", (event) => {
+  event.preventDefault();
+  profileName.textContent = inputFullName.value;
+  profileJob.textContent = inputOccupation.value;
+  closePopup();
+});
