@@ -6,3 +6,17 @@
   max-width: 880px;
   margin: 46px auto 0;
 }
+
+@media screen and (max-width: 890px) {
+  .photo-feed {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .photo-feed {
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
+}
