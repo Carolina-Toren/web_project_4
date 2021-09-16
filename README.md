@@ -2,15 +2,28 @@
 
 ### Overview
 
-* Figma
-* Images
+- intro
+- subjects
+- url
 
-**Figma**
+**intro**
 
-* [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+- This is the fourth assignments on the Yandex Practicum Web Developer curse.
 
-**Images**
+**What was used**
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
+1. BEM method
+2. <grid>
+3. breaking points
+4. <flexbox>
+5. File structure
+6. embedging content
+7. CSS @media Rule
+8. responsive layout
+9. <querySelector>
+10. functions
+11. <.addEventListener>
 
-Have fun with JavaScript!
+**Url**
+
+- [Github-pages](https://carolina-toren.github.io/web_project_4/)
