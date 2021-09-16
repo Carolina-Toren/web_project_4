@@ -15,14 +15,14 @@
 1. BEM method
 2. <grid>
 3. breaking points
-4. <flexbox>
+4. `<flexbox>`
 5. File structure
 6. embedging content
 7. CSS @media Rule
 8. responsive layout
-9. <querySelector>
+9. `<querySelector>`
 10. functions
-11. <.addEventListener>
+11. `<.addEventListener>`
 
 **Url**
 
