@@ -1,6 +1,6 @@
 .popup__occupation {
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   width: 358px;
   margin: 29.74px auto 0;
 }

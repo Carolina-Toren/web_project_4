@@ -9,3 +9,7 @@
   background-color: transparent;
   border: 1px solid #ffffff;
 }
+
+.profile__add-button:hover {
+  opacity: 0.6;
+}

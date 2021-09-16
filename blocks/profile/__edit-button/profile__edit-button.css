@@ -11,3 +11,7 @@
   box-sizing: border-box;
   border: 1px solid #ffffff;
 }
+
+.profile__edit-button:hover {
+  opacity: 0.6;
+}

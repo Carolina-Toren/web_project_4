@@ -16,3 +16,7 @@
   align-self: center;
   margin: 48px auto;
 }
+
+.popup__save-button:hover {
+  opacity: 0.8;
+}
