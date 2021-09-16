@@ -16,7 +16,9 @@
 
 @media screen and (max-width: 610px) {
   .photo-feed {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
     grid-gap: 20px;
+    max-width: 100%;
   }
 }
