@@ -24,7 +24,7 @@ editButton.addEventListener("click", () => {
   openPopup();
 });
 
-profileForm.addEventListener("click", (event) => {
+profileForm.addEventListener("submit", (event) => {
   event.preventDefault();
   profileName.textContent = inputFullName.value;
   profileJob.textContent = inputOccupation.value;
