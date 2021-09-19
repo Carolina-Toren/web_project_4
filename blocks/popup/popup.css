@@ -7,6 +7,7 @@
   margin: auto;
   background-color: rgba(0, 0, 0, 0.5);
   visibility: hidden;
+  display: flex;
 }
 
 .popup_visible {
