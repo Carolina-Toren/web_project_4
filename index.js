@@ -1,7 +1,7 @@
 let popup = document.querySelector(".popup");
 let closeButton = popup.querySelector(".popup__close-btn");
-let inputFullName = popup.querySelector(".popup__fullName");
-let inputOccupation = popup.querySelector(".popup__occupation");
+let inputFullName = popup.querySelector("#name-input");
+let inputOccupation = popup.querySelector("#occupation-input");
 let profileForm = document.querySelector(".popup__form");
 
 let editButton = document.querySelector(".profile__edit-button");
