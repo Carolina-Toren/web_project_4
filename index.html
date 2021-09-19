@@ -23,12 +23,20 @@
           <div class="profile__info">
             <div class="profile__info-title">
               <h1 class="profile__name">Jacques Cousteau</h1>
-              <button class="profile__edit-button" type="button"></button>
+              <button
+                class="profile__edit-button"
+                type="button"
+                aria-label="Edit profile user information button"
+              ></button>
             </div>
             <p class="profile__occupation">Explorer</p>
           </div>
 
-          <button class="profile__add-button" type="button"></button>
+          <button
+            class="profile__add-button"
+            type="button"
+            aria-label="Add photo button"
+          ></button>
         </section>
         <!--END OF PROFILE SECTION-->
         <section class="photo-feed">
@@ -42,7 +50,11 @@
 
               <div class="photo-feed__card-caption">
                 <h2 class="photo-feed__text">Yosemite Valley</h2>
-                <button class="photo-feed__card-button" type="button"></button>
+                <button
+                  class="photo-feed__card-button"
+                  type="button"
+                  aria-label="Like button"
+                ></button>
               </div>
             </div>
 
@@ -54,7 +66,11 @@
               />
               <div class="photo-feed__card-caption">
                 <h2 class="photo-feed__text">Lake Louise</h2>
-                <button class="photo-feed__card-button" type="button"></button>
+                <button
+                  class="photo-feed__card-button"
+                  type="button"
+                  aria-label="Like button"
+                ></button>
               </div>
             </div>
 
@@ -66,7 +82,11 @@
               />
               <div class="photo-feed__card-caption">
                 <h2 class="photo-feed__text">Bald Mountains</h2>
-                <button class="photo-feed__card-button" type="button"></button>
+                <button
+                  class="photo-feed__card-button"
+                  type="button"
+                  aria-label="Like button"
+                ></button>
               </div>
             </div>
 
@@ -78,7 +98,11 @@
               />
               <div class="photo-feed__card-caption">
                 <h2 class="photo-feed__text">Latemar</h2>
-                <button class="photo-feed__card-button" type="button"></button>
+                <button
+                  class="photo-feed__card-button"
+                  type="button"
+                  aria-label="Like button"
+                ></button>
               </div>
             </div>
 
@@ -90,7 +114,11 @@
               />
               <div class="photo-feed__card-caption">
                 <h2 class="photo-feed__text">Vanoise National Park</h2>
-                <button class="photo-feed__card-button" type="button"></button>
+                <button
+                  class="photo-feed__card-button"
+                  type="button"
+                  aria-label="Like button"
+                ></button>
               </div>
             </div>
 
@@ -102,7 +130,11 @@
               />
               <div class="photo-feed__card-caption">
                 <h2 class="photo-feed__text">Lago di Braies</h2>
-                <button class="photo-feed__card-button" type="button"></button>
+                <button
+                  class="photo-feed__card-button"
+                  type="button"
+                  aria-label="Like button"
+                ></button>
               </div>
             </div>
           </div>
@@ -114,7 +146,11 @@
       </footer>
       <div class="popup">
         <div class="popup__window">
-          <button class="popup__close-btn" type="button"></button>
+          <button
+            class="popup__close-btn"
+            type="button"
+            aria-label="Close button"
+          ></button>
           <h2 class="popup__window-title">Edit profile</h2>
           <form class="popup__form" name="popup__form">
             <input
@@ -123,6 +159,7 @@
               name="name"
               id="name-input"
               placeholder="Full Name"
+              required
             />
             <input
               type="text"
@@ -130,6 +167,7 @@
               name="occupation"
               id="occupation-input"
               placeholder="Occupation"
+              required
             />
             <button type="submit" class="popup__save-button">Save</button>
           </form>
