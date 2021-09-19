@@ -1,12 +1,13 @@
 .popup__window {
   max-width: 430px;
-  height: 330px;
+  width: 100%;
   background-color: #ffffff;
   margin: 195px auto;
   display: flex;
   flex-direction: column;
   border-radius: 10px;
   position: relative;
+  padding: 0;
 }
 
 @media screen and (max-width: 530px) {
