@@ -1,5 +1,5 @@
 .popup__window-title {
-  font-family: Inter;
+  font-family: Inter, sans-serif;
   font-style: normal;
   font-weight: 900;
   font-size: 24px;
@@ -11,5 +11,6 @@
   .popup__window-title {
     font-size: 18px;
     line-height: 22px;
+    margin: 25px 22px 76px;
   }
 }

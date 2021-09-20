@@ -9,7 +9,8 @@
   position: absolute;
   right: -40px;
   top: -40px;
-  background-size: cover;
+  background-size: auto;
+  background-position: center;
   padding: 0;
 }
 
