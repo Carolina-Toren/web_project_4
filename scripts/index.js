@@ -20,9 +20,10 @@ function closePopup() {
 
 closeButton.addEventListener("click", closePopup);
 
-editButton.addEventListener("click", () => {
+editButton.addEventListener("click");
+{
   openPopup();
-});
+}
 
 profileForm.addEventListener("submit", (event) => {
   event.preventDefault();
