@@ -132,10 +132,20 @@ document.querySelectorAll(".photo-feed__delete-btn").forEach((item) => {
 
 const popupPhoto = document.querySelector(".popup_photo");
 const popupImage = document.querySelector(".popup__image");
+const closeButtonPhoto = document.querySelector("#close_btn_photo");
+const popupPhotoCaption = document.querySelector(".popup__image-caption");
 
 document.querySelectorAll(".photo-feed__image").forEach((item) => {
   item.addEventListener("click", (event) => {
     popupPhoto.classList.add("popup_visible");
     popupImage.src = item.src;
+    popupPhotoCaption.textContent =
+      item.nextElementSibling.firstElementChild.textContent;
   });
 });
+
+function closePopupPohto() {
+  popupPhoto.classList.remove("popup_visible");
+}
+
+closeButtonPhoto.addEventListener("click", closePopupPohto);
