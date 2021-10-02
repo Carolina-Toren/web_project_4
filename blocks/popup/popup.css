@@ -10,4 +10,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  opacity: 0;
+  transition: visibility 0s linear 300ms, opacity 300ms;
 }
