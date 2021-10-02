@@ -27,6 +27,24 @@ let feedCards = [
   },
 ];
 
+//global functions~~~~~~~~>
+function closePopup(popup) {
+  popup.classList.remove("popup_visible");
+}
+
+function openPopup(popupType) {
+  if (!popupType.classList.contains("pop_visible")) {
+    popupType.classList.add("popup_visible");
+    if (popupType.classList.contains("popup_edit")) {
+      inputFullName.value = profileName.textContent;
+      inputOccupation.value = profileJob.textContent;
+    } else if (popupType.classList.contains(".popup_add")) {
+      inputTitle.value = "";
+      inputImageLink.value = "";
+    }
+  }
+}
+
 /*----------------------------------EDIT POPUP-----------------------------------*/
 
 const popupEdit = document.querySelector(".popup_edit");
@@ -39,19 +57,9 @@ const editButton = document.querySelector(".profile__edit-button");
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__occupation");
 
-function openPopupEdit() {
-  popupEdit.classList.add("popup_visible");
-  inputFullName.value = profileName.textContent;
-  inputOccupation.value = profileJob.textContent;
-}
+closeButtonEdit.addEventListener("click", () => closePopup(popupEdit));
 
-function closePopupEdit() {
-  popupEdit.classList.remove("popup_visible");
-}
-
-closeButtonEdit.addEventListener("click", closePopupEdit);
-
-editButton.addEventListener("click", openPopupEdit);
+editButton.addEventListener("click", () => openPopup(popupEdit));
 
 profileForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -81,17 +89,9 @@ function photoGenerator({ name, link }) {
   return card;
 }
 
-function openPopupAdd() {
-  popupAdd.classList.add("popup_visible");
-  inputTitle.value = "";
-  inputImageLink.value = "";
-}
-
-function closePopupAdd() {
-  popupAdd.classList.remove("popup_visible");
-}
-
-addButton.addEventListener("click", openPopupAdd);
+feedCards.forEach((feedCardsData) => {
+  photoGrid.append(photoGenerator(feedCardsData));
+});
 
 addForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -104,11 +104,8 @@ addForm.addEventListener("submit", (event) => {
   closePopupAdd();
 });
 
-closeButtonAdd.addEventListener("click", closePopupAdd);
-
-feedCards.forEach((feedCardsData) => {
-  photoGrid.append(photoGenerator(feedCardsData));
-});
+closeButtonAdd.addEventListener("click", () => closePopup(popupAdd));
+addButton.addEventListener("click", () => openPopup(popupAdd));
 
 /*---------------like button -------------------*/
 
@@ -144,8 +141,4 @@ document.querySelectorAll(".photo-feed__image").forEach((item) => {
   });
 });
 
-function closePopupPohto() {
-  popupPhoto.classList.remove("popup_visible");
-}
-
-closeButtonPhoto.addEventListener("click", closePopupPohto);
+closeButtonPhoto.addEventListener("click", () => closePopup(popupPhoto));
