@@ -120,8 +120,16 @@ addForm.addEventListener("submit", (event) => {
 
 closeButtonAdd.addEventListener("click", () => closePopup(popupAdd));
 
-addButton.addEventListener("click", () => openPopup(popupAdd));
+addButton.addEventListener("click", () => {
+  prepareAddPopup();
+  openPopup(popupAdd);
+});
 
+function prepareAddPopup() {
+  inputTitle.value = "";
+
+  inputImageLink.value = "";
+}
 const popupPhoto = document.querySelector(".popup_photo");
 const popupImage = document.querySelector(".popup__image");
 const closeButtonPhoto = document.querySelector("#close_btn_photo");
