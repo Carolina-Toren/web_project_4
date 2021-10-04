@@ -33,16 +33,7 @@ function closePopup(popup) {
 }
 
 function openPopup(popupType) {
-  if (!popupType.classList.contains("pop_visible")) {
-    popupType.classList.add("popup_visible");
-    if (popupType.classList.contains("popup_edit")) {
-      inputFullName.value = profileName.textContent;
-      inputOccupation.value = profileJob.textContent;
-    } else if (popupType.classList.contains(".popup_add")) {
-      inputTitle.value = "";
-      inputImageLink.value = "";
-    }
-  }
+  popupType.classList.add("popup_visible");
 }
 
 /*----------------------------------EDIT POPUP-----------------------------------*/
@@ -59,13 +50,21 @@ const profileJob = document.querySelector(".profile__occupation");
 
 closeButtonEdit.addEventListener("click", () => closePopup(popupEdit));
 
-editButton.addEventListener("click", () => openPopup(popupEdit));
+editButton.addEventListener("click", () => {
+  openPopup(popupEdit);
+  openpopupEdit();
+});
+function openpopupEdit() {
+  inputFullName.value = profileName.textContent;
 
+  inputOccupation.value = profileJob.textContent;
+}
 profileForm.addEventListener("submit", (event) => {
   event.preventDefault();
   profileName.textContent = inputFullName.value;
   profileJob.textContent = inputOccupation.value;
-  closePopupEdit();
+
+  closePopup(popupEdit);
 });
 
 /*------------------------ADD POPUP---------------------------------------*/
@@ -76,15 +75,30 @@ const inputTitle = popupAdd.querySelector("#title-input");
 const inputImageLink = popupAdd.querySelector("#img-link-input");
 const addForm = popupAdd.querySelector("#add_form");
 const addButton = document.querySelector(".profile__add-button");
-const photoTemplate = document
-  .querySelector("#photo-feed__cards")
-  .content.querySelector(".photo-feed__card");
+const photoTemplate = document.querySelector("#photo-feed__cards").content.querySelector(".photo-feed__card");
 const photoGrid = document.querySelector(".photo-feed__grid");
 
+//function for adding photos and adding the tamplate and photos at launch
 function photoGenerator({ name, link }) {
   const card = photoTemplate.cloneNode(true);
   card.querySelector(".photo-feed__text").textContent = name;
   card.querySelector(".photo-feed__image").src = link;
+  card.querySelector(".photo-feed__delete-btn").addEventListener("click", (event) => {
+    const deletedCard = card;
+    deletedCard.remove();
+  });
+  card.querySelector(".photo-feed__card-button").addEventListener("click", (event) => {
+    card.querySelector(".photo-feed__card-button").style.backgroundImage =
+      "url(../../../images/button/like_button_active.svg)";
+  });
+
+  card.querySelector(".photo-feed__image").addEventListener("click", (event) => {
+    popupPhoto.classList.add("popup_visible");
+
+    popupImage.src = card.querySelector(".photo-feed__image").src;
+
+    popupPhotoCaption.textContent = card.querySelector(".photo-feed__card-caption").textContent;
+  });
 
   return card;
 }
@@ -101,44 +115,16 @@ addForm.addEventListener("submit", (event) => {
     link: inputImageLink.value,
   });
   photoGrid.append(cardElement);
-  closePopupAdd();
+  closePopup(popupAdd);
 });
 
 closeButtonAdd.addEventListener("click", () => closePopup(popupAdd));
+
 addButton.addEventListener("click", () => openPopup(popupAdd));
-
-/*---------------like button -------------------*/
-
-document.querySelectorAll(".photo-feed__card-button").forEach((item) => {
-  item.addEventListener("click", (event) => {
-    item.style.backgroundImage =
-      "url(../../../images/button/like_button_active.svg)";
-  });
-});
-
-/*---------------------delete button--------------*/
-
-document.querySelectorAll(".photo-feed__delete-btn").forEach((item) => {
-  item.addEventListener("click", (event) => {
-    const deletedCard = item.parentNode;
-    deletedCard.remove();
-  });
-});
-
-/*-----------------photo popup------------*/
 
 const popupPhoto = document.querySelector(".popup_photo");
 const popupImage = document.querySelector(".popup__image");
 const closeButtonPhoto = document.querySelector("#close_btn_photo");
 const popupPhotoCaption = document.querySelector(".popup__image-caption");
-
-document.querySelectorAll(".photo-feed__image").forEach((item) => {
-  item.addEventListener("click", (event) => {
-    popupPhoto.classList.add("popup_visible");
-    popupImage.src = item.src;
-    popupPhotoCaption.textContent =
-      item.nextElementSibling.firstElementChild.textContent;
-  });
-});
 
 closeButtonPhoto.addEventListener("click", () => closePopup(popupPhoto));
