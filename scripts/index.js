@@ -51,10 +51,10 @@ const profileJob = document.querySelector(".profile__occupation");
 closeButtonEdit.addEventListener("click", () => closePopup(popupEdit));
 
 editButton.addEventListener("click", () => {
+  prepareEditProfilePopup();
   openPopup(popupEdit);
-  openpopupEdit();
 });
-function openpopupEdit() {
+function prepareEditProfilePopup() {
   inputFullName.value = profileName.textContent;
 
   inputOccupation.value = profileJob.textContent;
