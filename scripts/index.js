@@ -1,6 +1,6 @@
 /* Cards JS */
 
-let feedCards = [
+const feedCards = [
   {
     name: "Yosemite Valley",
     link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
@@ -32,8 +32,8 @@ function closePopup(popup) {
   popup.classList.remove("popup_visible");
 }
 
-function openPopup(popupType) {
-  popupType.classList.add("popup_visible");
+function openPopup(popup) {
+  popup.classList.add("popup_visible");
 }
 
 /*----------------------------------EDIT POPUP-----------------------------------*/
@@ -88,12 +88,12 @@ function photoGenerator({ name, link }) {
     deletedCard.remove();
   });
   card.querySelector(".photo-feed__card-button").addEventListener("click", (event) => {
-    card.querySelector(".photo-feed__card-button").style.backgroundImage =
-      "url(../../../images/button/like_button_active.svg)";
+    card.querySelector(".photo-feed__card-button").classList.toggle("photo-feed__card-button_not-active");
+    card.querySelector(".photo-feed__card-button").classList.toggle("photo-feed__card-button_active");
   });
 
   card.querySelector(".photo-feed__image").addEventListener("click", (event) => {
-    popupPhoto.classList.add("popup_visible");
+    openPopup(popupPhoto);
 
     popupImage.src = card.querySelector(".photo-feed__image").src;
 
@@ -109,7 +109,6 @@ feedCards.forEach((feedCardsData) => {
 
 addForm.addEventListener("submit", (event) => {
   event.preventDefault();
-  feedCards.unshift({ name: inputTitle.value, link: inputImageLink.value });
   const cardElement = photoGenerator({
     name: inputTitle.value,
     link: inputImageLink.value,
