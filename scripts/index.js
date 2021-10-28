@@ -38,11 +38,11 @@ function openPopup(popup) {
   popup.classList.add("popup_visible");
 
   document.addEventListener("keydown", escButtonInPopup);
-  document.addEventListener("mouseup", mouseClickInPopup);
+  popup.addEventListener("mouseup", mouseClickInPopup);
 }
 
 function escButtonInPopup(evt) {
-  if (evt.keyCode === 27) {
+  if (evt.key === "Escape") {
     closePopup(document.querySelector(".popup_visible"));
   }
 }
@@ -99,9 +99,10 @@ const photoGrid = document.querySelector(".photo-feed__grid");
 
 function photoGenerator({ name, link }) {
   const card = photoTemplate.cloneNode(true);
+  const cardImage = card.querySelector(".photo-feed__image");
   card.querySelector(".photo-feed__text").textContent = name;
-  card.querySelector(".photo-feed__image").src = link;
-  card.querySelector(".photo-feed__image").alt = name;
+  cardImage.src = link;
+  cardImage.alt = name;
   card.querySelector(".photo-feed__delete-btn").addEventListener("click", (event) => {
     const deletedCard = card;
     deletedCard.remove();
@@ -112,10 +113,10 @@ function photoGenerator({ name, link }) {
     card.querySelector(".photo-feed__card-button").classList.toggle("photo-feed__card-button_active");
   });
 
-  card.querySelector(".photo-feed__image").addEventListener("click", (event) => {
+  cardImage.addEventListener("click", (event) => {
     openPopup(popupPhoto);
-    popupImage.src = card.querySelector(".photo-feed__image").src;
-    popupPhotoCaption.textContent = card.querySelector(".photo-feed__card-caption").textContent;
+    popupImage.src = link;
+    popupPhotoCaption.textContent = name;
     popupImage.alt = name;
   });
   return card;
@@ -126,12 +127,14 @@ feedCards.forEach((feedCardsData) => {
 
 addForm.addEventListener("submit", (event) => {
   event.preventDefault();
+
   const cardElement = photoGenerator({
     name: inputTitle.value,
     link: inputImageLink.value,
   });
   photoGrid.append(cardElement);
   closePopup(popupAdd);
+  addForm.querySelector(".popup__save-button").classList.add("popup__button_disabled");
 });
 
 closeButtonAdd.addEventListener("click", () => closePopup(popupAdd));
