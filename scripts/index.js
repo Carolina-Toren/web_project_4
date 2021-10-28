@@ -99,6 +99,7 @@ function photoGenerator({ name, link }) {
   const card = photoTemplate.cloneNode(true);
   card.querySelector(".photo-feed__text").textContent = name;
   card.querySelector(".photo-feed__image").src = link;
+  card.querySelector(".photo-feed__image").alt = name;
   card.querySelector(".photo-feed__delete-btn").addEventListener("click", (event) => {
     const deletedCard = card;
     deletedCard.remove();
@@ -113,6 +114,7 @@ function photoGenerator({ name, link }) {
     openPopup(popupPhoto);
     popupImage.src = card.querySelector(".photo-feed__image").src;
     popupPhotoCaption.textContent = card.querySelector(".photo-feed__card-caption").textContent;
+    popupImage.alt = name;
   });
   return card;
 }
