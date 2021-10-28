@@ -1,5 +1,4 @@
 /* Cards JS */
-
 const feedCards = [
   {
     name: "Yosemite Valley",
@@ -28,12 +27,29 @@ const feedCards = [
 ];
 
 //global functions~~~~~~~~>
+
 function closePopup(popup) {
   popup.classList.remove("popup_visible");
 }
 
 function openPopup(popup) {
   popup.classList.add("popup_visible");
+
+  document.addEventListener("keydown", escButtonInPopup);
+  document.addEventListener("mouseup", mouseClickInPopup);
+}
+
+function escButtonInPopup(evt) {
+  if (evt.keyCode === 27) {
+    closePopup(document.querySelector(".popup_visible"));
+  }
+}
+
+function mouseClickInPopup(evt) {
+  if (evt.target.classList.contains("popup_visible"));
+  {
+    closePopup(evt.target);
+  }
 }
 
 /*----------------------------------EDIT POPUP-----------------------------------*/
@@ -43,7 +59,6 @@ const closeButtonEdit = popupEdit.querySelector("#close_btn_edit");
 const inputFullName = popupEdit.querySelector("#name-input");
 const inputOccupation = popupEdit.querySelector("#occupation-input");
 const profileForm = popupEdit.querySelector(".popup__form_edit");
-
 const editButton = document.querySelector(".profile__edit-button");
 const profileName = document.querySelector(".profile__name");
 const profileJob = document.querySelector(".profile__occupation");
@@ -54,16 +69,16 @@ editButton.addEventListener("click", () => {
   prepareEditProfilePopup();
   openPopup(popupEdit);
 });
+
 function prepareEditProfilePopup() {
   inputFullName.value = profileName.textContent;
-
   inputOccupation.value = profileJob.textContent;
 }
+
 profileForm.addEventListener("submit", (event) => {
   event.preventDefault();
   profileName.textContent = inputFullName.value;
   profileJob.textContent = inputOccupation.value;
-
   closePopup(popupEdit);
 });
 
@@ -79,6 +94,7 @@ const photoTemplate = document.querySelector("#photo-feed__cards").content.query
 const photoGrid = document.querySelector(".photo-feed__grid");
 
 //function for adding photos and adding the tamplate and photos at launch
+
 function photoGenerator({ name, link }) {
   const card = photoTemplate.cloneNode(true);
   card.querySelector(".photo-feed__text").textContent = name;
@@ -87,6 +103,7 @@ function photoGenerator({ name, link }) {
     const deletedCard = card;
     deletedCard.remove();
   });
+
   card.querySelector(".photo-feed__card-button").addEventListener("click", (event) => {
     card.querySelector(".photo-feed__card-button").classList.toggle("photo-feed__card-button_not-active");
     card.querySelector(".photo-feed__card-button").classList.toggle("photo-feed__card-button_active");
@@ -94,15 +111,11 @@ function photoGenerator({ name, link }) {
 
   card.querySelector(".photo-feed__image").addEventListener("click", (event) => {
     openPopup(popupPhoto);
-
     popupImage.src = card.querySelector(".photo-feed__image").src;
-
     popupPhotoCaption.textContent = card.querySelector(".photo-feed__card-caption").textContent;
   });
-
   return card;
 }
-
 feedCards.forEach((feedCardsData) => {
   photoGrid.append(photoGenerator(feedCardsData));
 });
@@ -126,12 +139,11 @@ addButton.addEventListener("click", () => {
 
 function prepareAddPopup() {
   inputTitle.value = "";
-
   inputImageLink.value = "";
 }
+
 const popupPhoto = document.querySelector(".popup_photo");
 const popupImage = document.querySelector(".popup__image");
 const closeButtonPhoto = document.querySelector("#close_btn_photo");
 const popupPhotoCaption = document.querySelector(".popup__image-caption");
-
 closeButtonPhoto.addEventListener("click", () => closePopup(popupPhoto));

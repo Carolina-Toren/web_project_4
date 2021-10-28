@@ -29,3 +29,7 @@
     margin: 46px 22px 25px;
   }
 }
+
+.popup__save-button:disabled {
+  background-image: url(../../../images/button/save_disabled.svg);
+}
