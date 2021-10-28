@@ -30,6 +30,8 @@ const feedCards = [
 
 function closePopup(popup) {
   popup.classList.remove("popup_visible");
+  document.removeEventListener("keydown", escButtonInPopup);
+  document.removeEventListener("mouseup", mouseClickInPopup);
 }
 
 function openPopup(popup) {
