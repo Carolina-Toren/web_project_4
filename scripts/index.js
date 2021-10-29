@@ -31,12 +31,11 @@ const feedCards = [
 function closePopup(popup) {
   popup.classList.remove("popup_visible");
   document.removeEventListener("keydown", escButtonInPopup);
-  document.removeEventListener("mouseup", mouseClickInPopup);
+  popup.removeEventListener("mouseup", mouseClickInPopup);
 }
 
 function openPopup(popup) {
   popup.classList.add("popup_visible");
-
   document.addEventListener("keydown", escButtonInPopup);
   popup.addEventListener("mouseup", mouseClickInPopup);
 }
