@@ -8,38 +8,27 @@ const inputImageLink = document.querySelector("#img-link-input");
 
 function closePopup(popup) {
   popup.classList.remove("popup_visible");
-  document.removeEventListener("keydown", escButtonInPopup);
-  popup.removeEventListener("mouseup", mouseClickInPopup);
+  document.removeEventListener("keydown", handleKeyDown);
+  popup.removeEventListener("mouseup", handleMouseUp);
 }
 
 function openPopup(popup) {
   popup.classList.add("popup_visible");
-  document.addEventListener("keydown", escButtonInPopup);
-  popup.addEventListener("mouseup", mouseClickInPopup);
-  popup.querySelector(".popup__save-button").classList.add("popup__button_disabled");
+  document.addEventListener("keydown", handleKeyDown);
+  popup.addEventListener("mouseup", handleMouseUp);
 }
 
-function escButtonInPopup(evt) {
+function handleKeyDown(evt) {
   if (evt.key === "Escape") {
     closePopup(document.querySelector(".popup_visible"));
   }
 }
 
-function mouseClickInPopup(evt) {
+function handleMouseUp(evt) {
   if (evt.target.classList.contains("popup_visible"));
   {
     closePopup(evt.target);
   }
 }
 
-function prepareEditProfilePopup() {
-  inputFullName.value = profileName.textContent;
-  inputOccupation.value = profileJob.textContent;
-}
-
-function prepareAddPopup() {
-  inputTitle.value = "";
-  inputImageLink.value = "";
-}
-
-export { openPopup, closePopup, prepareEditProfilePopup, prepareAddPopup };
+export { openPopup, closePopup };

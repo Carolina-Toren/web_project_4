@@ -13,3 +13,7 @@
   right: 15px;
   top: 18px;
 }
+
+.photo-feed__delete-btn:hover {
+  opacity: 0.6;
+}

@@ -1,7 +1,7 @@
 import feedCards from "./feedCards.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
-import { openPopup, closePopup, prepareEditProfilePopup, prepareAddPopup } from "./utils.js";
+import { openPopup, closePopup } from "./utils.js";
 
 /*------------variables--------*/
 
@@ -88,6 +88,7 @@ profileForm.addEventListener("submit", (event) => {
   profileName.textContent = inputFullName.value;
   profileJob.textContent = inputOccupation.value;
   closePopup(popupEdit);
+  profileForm.querySelector(".popup__save-button").classList.add("popup__button_disabled");
 });
 
 addForm.addEventListener("submit", (event) => {
@@ -99,6 +100,7 @@ addForm.addEventListener("submit", (event) => {
   const card = new Card(cardData, photoTemplate);
   photoGrid.append(card.createCard());
   closePopup(popupAdd);
+  addForm.querySelector(".popup__save-button").classList.add("popup__button_disabled");
 });
 
 /*###################################################################*/
@@ -109,3 +111,12 @@ feedCards.forEach((feedCardsData) => {
   const card = new Card(feedCardsData, photoTemplate);
   photoGrid.append(card.createCard());
 });
+
+function prepareEditProfilePopup() {
+  inputFullName.value = profileName.textContent;
+  inputOccupation.value = profileJob.textContent;
+}
+
+function prepareAddPopup() {
+  addForm.reset();
+}

@@ -8,49 +8,46 @@ export default class Card {
   constructor(data, template) {
     this._name = data.name;
     this._link = data.link;
-    this._template = template.cloneNode(true);
+    this._element = template.cloneNode(true);
   }
   createCard() {
-    const cardName = this._template.querySelector(".photo-feed__text");
-    const cardImage = this._template.querySelector(".photo-feed__image");
+    const cardName = this._element.querySelector(".photo-feed__text");
+    const cardImage = this._element.querySelector(".photo-feed__image");
     cardName.textContent = this._name;
     cardImage.src = this._link;
     cardImage.alt = this._name;
 
     this._setEventListeners();
 
-    return this._template;
+    return this._element;
   }
 
   _setEventListeners() {
-    const cardButton = this._template.querySelector(".photo-feed__card-button");
-    const cardImage = this._template.querySelector(".photo-feed__image");
-    const cardDeleteBtn = this._template.querySelector(".photo-feed__delete-btn");
+    const cardButton = this._element.querySelector(".photo-feed__card-button");
+    const cardImage = this._element.querySelector(".photo-feed__image");
+    const cardDeleteBtn = this._element.querySelector(".photo-feed__delete-btn");
 
-    this._likeHandler(cardButton);
+    cardButton.addEventListener("click", this._addLikeButtonClickListener);
 
-    this._popupHandler(cardImage);
+    cardImage.addEventListener("click", this._addPohotoClickListner);
 
-    this._deleteHandler(cardDeleteBtn);
+    cardDeleteBtn.addEventListener("click", this._addDeleteButtonListener);
   }
 
-  _likeHandler(cardButton) {
-    cardButton.addEventListener("click", (event) => {
-      cardButton.classList.toggle("photo-feed__card-button_not-active");
-      cardButton.classList.toggle("photo-feed__card-button_active");
-    });
-  }
+  _addLikeButtonClickListener = (event) => {
+    event.target.classList.toggle("photo-feed__card-button_not-active");
+    event.target.classList.toggle("photo-feed__card-button_active");
+  };
 
-  _popupHandler(cardImage) {
-    cardImage.addEventListener("click", () => {
-      popupImage.src = this._link;
-      popupImage.alt = this._name;
-      popupPhotoCaption.textContent = this._name;
-      openPopup(popupPhoto);
-    });
-  }
+  _addPohotoClickListner = () => {
+    popupImage.src = this._link;
+    popupImage.alt = this._name;
+    popupPhotoCaption.textContent = this._name;
+    openPopup(popupPhoto);
+  };
 
-  _deleteHandler(cardDeleteBtn) {
-    cardDeleteBtn.addEventListener("click", () => this._template.remove());
-  }
+  _addDeleteButtonListener = () => {
+    this._element.remove();
+    this._element = null;
+  };
 }
