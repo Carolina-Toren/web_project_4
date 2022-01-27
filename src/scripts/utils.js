@@ -6,7 +6,7 @@ const profileJob = document.querySelector(".profile__occupation");
 const inputTitle = document.querySelector("#title-input");
 const inputImageLink = document.querySelector("#img-link-input");
 
-function closePopup(popup) {
+/*function closePopup(popup) {
   popup.classList.remove("popup_visible");
   document.removeEventListener("keydown", handleKeyDown);
   popup.removeEventListener("mouseup", handleMouseUp);
@@ -29,6 +29,6 @@ function handleMouseUp(evt) {
   {
     closePopup(evt.target);
   }
-}
+}*/
 
-export { openPopup, closePopup };
+//export { openPopup, closePopup };

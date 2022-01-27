@@ -8,7 +8,7 @@
 
 **intro**
 
-- This is the fourth assignments on the Yandex Practicum Web Developer curse.
+- This is the fourth to eighth assignments on the Yandex Practicum Web Developer curse.
 
 **What was used**
 
@@ -23,6 +23,9 @@
 9. `<querySelector>`
 10. functions
 11. `<.addEventListener>`
+12. OOP
+13. webpack
+14. babel
 
 **Url**
 
