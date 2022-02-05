@@ -1,7 +1,17 @@
 .profile__image {
   width: 120px;
+  min-height: 120px;
   border-radius: 50%;
   margin-right: 30px;
+  position: relative;
+  background-image: url("../../../images/profilepic.gif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.profile__image:hover {
+  opacity: 0.4;
 }
 
 @media screen and (max-width: 715px) {

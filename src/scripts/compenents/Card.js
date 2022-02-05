@@ -1,9 +1,10 @@
 export default class Card {
-  constructor(data, template, handleCardClick) {
+  constructor(data, template, handleCardClick, handleDeleteCard) {
     this._name = data.name;
     this._link = data.link;
     this._element = template.cloneNode(true);
     this._handleCardClick = handleCardClick;
+    this._handleDeleteCard = handleDeleteCard;
   }
   createCard() {
     const cardName = this._element.querySelector(".photo-feed__text");
@@ -18,17 +19,15 @@ export default class Card {
   }
 
   _setEventListeners() {
-    const cardButton = this._element.querySelector(".photo-feed__card-button");
-    const cardImage = this._element.querySelector(".photo-feed__image");
-    const cardDeleteBtn = this._element.querySelector(".photo-feed__delete-btn");
+    this._element.querySelector(".photo-feed__card-button").addEventListener("click", this._addLikeButtonClickListener);
 
-    cardButton.addEventListener("click", this._addLikeButtonClickListener);
-
-    cardImage.addEventListener("click", () => {
+    this._element.querySelector(".photo-feed__image").addEventListener("click", () => {
       this._handlePreviewImage();
     });
 
-    cardDeleteBtn.addEventListener("click", this._addDeleteButtonListener);
+    this._element.querySelector(".photo-feed__delete-btn").addEventListener("click", () => {
+      this._handleDeleteCard();
+    });
   }
 
   _addLikeButtonClickListener = (event) => {
@@ -39,9 +38,4 @@ export default class Card {
   _handlePreviewImage() {
     this._handleCardClick({ link: this._link, name: this._name });
   }
-
-  _addDeleteButtonListener = () => {
-    this._element.remove();
-    this._element = null;
-  };
 }

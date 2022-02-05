@@ -13,7 +13,7 @@
 **What was used**
 
 1. BEM method
-2. <grid>
+2. `<grid>`
 3. breaking points
 4. `<flexbox>`
 5. File structure
