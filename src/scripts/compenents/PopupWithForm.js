@@ -28,12 +28,12 @@ export default class PopupWithForm extends Popup {
       }
       this._submitHandler(this._getInputValues());
       this.close();
-      if (this._submitBtn.textContent === "Saving...") {
-        this._submitBtn.textContent = "Save";
-      } else if (this._submitBtn.textContent === "Creating...") {
-        this._submitBtn.textContent = "Create";
-      }
     });
+    if (this._submitBtn.textContent === "Saving...") {
+      this._submitBtn.textContent = "Save";
+    } else if (this._submitBtn.textContent === "Creating...") {
+      this._submitBtn.textContent = "Create";
+    }
     super.setEventListeners();
   }
 
