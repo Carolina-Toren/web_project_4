@@ -62,7 +62,6 @@ export default class Api {
   }
 
   editPrifileImg(data) {
-    debugger;
     return customFetch(`${this._baseUrl}/users/me/avatar`, {
       headers: this._headers,
       method: "PATCH",
