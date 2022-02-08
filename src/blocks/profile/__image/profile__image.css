@@ -1,16 +1,25 @@
 .profile__image {
   width: 120px;
   min-height: 120px;
-  border-radius: 50%;
+  border-radius: 50% 50%;
   margin-right: 30px;
   position: relative;
-  background-image: url("../../../images/profilepic.gif");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: 100% 100%;
+}
+.profile__image::before {
+  content: " ";
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 0.3s linear;
 }
 
-.profile__image:hover {
+.profile__image:hover::before {
   opacity: 0.4;
 }
 
@@ -18,5 +27,6 @@
   .profile__image {
     margin: 0;
     width: 168px;
+    height: 168px;
   }
 }

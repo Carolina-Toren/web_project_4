@@ -83,7 +83,7 @@
               required
             />
             <span class="popup__error" id="occupation-input-error"></span>
-            <button type="submit" class="popup__save-button">Save</button>
+            <button type="submit" class="popup__save-button" id="edit-save-btn">Save</button>
           </form>
         </div>
       </div>
@@ -120,7 +120,7 @@
               required
             />
             <span class="popup__error" id="img-link-input-error"></span>
-            <button type="submit" class="popup__save-button">Create</button>
+            <button type="submit" class="popup__save-button" id="add-save-btn">Create</button>
           </form>
         </div>
       </div>
@@ -140,13 +140,13 @@
             <input
               type="url"
               class="popup__input"
-              name="img-link"
+              name="avatar"
               id="profileImg-input"
               placeholder="Image link"
               required
             />
             <span class="popup__error" id="profileImg-input-error"></span>
-            <button type="submit" class="popup__save-button">Save</button>
+            <button type="submit" class="popup__save-button" id="profile-img-save-btn">Save</button>
           </form>
         </div>
       </div>
@@ -176,7 +176,7 @@
         <h2 class="popup__window-title">Are you sure?</h2>
 
         <form class="popup__form" name="popup__form_confirmation" id="confirmation_form">
-          <button type="submit" class="popup__save-button">Yes</button>
+          <button type="submit" class="popup__save-button" id="delete-confirm-btn">Yes</button>
         </form>
       </div>
     </div>
@@ -195,7 +195,7 @@
               type="button"
               aria-label="like button"
             ></button>
-            <span class="photo-feed__card-button-counter">32</span>
+            <span class="photo-feed__card-button-counter"></span>
           </div>
         </div>
       </div>

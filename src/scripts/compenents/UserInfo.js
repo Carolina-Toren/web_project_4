@@ -1,7 +1,10 @@
+import { profileImgform } from "../utils/contants";
+
 export default class UserInfo {
-  constructor({ profileNameSelector, profileJobSelector }) {
+  constructor({ profileNameSelector, profileJobSelector, profileImgSelector }) {
     this._profileName = document.querySelector(profileNameSelector);
     this._profileJob = document.querySelector(profileJobSelector);
+    this._profileImg = document.querySelector(profileImgSelector);
   }
 
   getUserInfo() {
@@ -11,8 +14,9 @@ export default class UserInfo {
     };
   }
 
-  setUserInfo({ name, occupation }) {
+  setUserInfo({ name, about, avatar }) {
     this._profileName.textContent = name;
-    this._profileJob.textContent = occupation;
+    this._profileJob.textContent = about;
+    this._profileImg.style.backgroundImage = `url("${avatar}")`;
   }
 }

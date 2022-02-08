@@ -17,6 +17,10 @@ import {
   addButton,
   formSettings,
   formValidators,
+  editSaveBtn,
+  addSaveBtn,
+  profileImgSaveBtn,
+  deleteConfirmBtn,
 } from "../scripts/utils/contants";
 import Card from "../scripts/compenents/Card.js";
 import PopupDeleteCard from "../scripts/compenents/PopupDeleteCard";
@@ -34,13 +38,50 @@ const api = new Api({
   },
 });
 
-api.getInitialCards().then((cardData) => {
+let userId;
+
+Promise.all([api.getInitialCards(), api.getUserInfo()]).then(([cardData, userData]) => {
+  userId = userData._id;
   section.render(cardData);
+  userInfo.setUserInfo({ name: userData.name, about: userData.about, avatar: userData.avatar });
 });
 
-api.getUserInfo().then((res) => {
-  userInfo.setUserInfo({ name: res.name, occupation: res.about });
-});
+const handleDeleteImgForm = (cardId, cardToDelete) => {
+  confirmDelete.setAction(() => {
+    deleteConfirmBtn.textContent = "Deleting";
+
+    api
+      .deleteCard(cardId)
+      .then(() => {
+        cardToDelete.remove();
+        cardToDelete = null;
+      })
+
+      .catch((err) => console.log(err));
+  });
+  deleteConfirmBtn.textContent = "Yes";
+};
+
+const handleLikeClick = (cardId, cardBtn, likeState, likeCounter) => {
+  if (likeState) {
+    api
+      .likeCard(cardId)
+      .then((res) => {
+        cardBtn.classList.toggle("photo-feed__card-button_not-active");
+        cardBtn.classList.toggle("photo-feed__card-button_active");
+        likeCounter.textContent = res.likes.length;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  } else {
+    api.dislikeCard(cardId).then((res) => {
+      cardBtn.classList.toggle("photo-feed__card-button_not-active");
+      cardBtn.classList.toggle("photo-feed__card-button_active");
+      likeCounter.textContent = res.likes.length;
+    });
+  }
+};
 
 profilePic.src = profilepicSrc;
 profilePicEditButton.src = profilePicEditButtonSrc;
@@ -48,14 +89,20 @@ logoImage.src = logoSrc;
 
 const popupPhoto = new PopupWithImage(".popup_photo");
 popupPhoto.setEventListeners();
-
 const confirmDelete = new PopupDeleteCard(".popup_confirmation");
 confirmDelete.setEventListeners();
 
 const generateCard = (data) => {
-  return new Card(data, photoTemplate, popupPhoto.open, confirmDelete.open);
+  return new Card(
+    data,
+    userId,
+    photoTemplate,
+    popupPhoto.open,
+    confirmDelete.open,
+    handleDeleteImgForm,
+    handleLikeClick
+  );
 };
-confirmDelete.open();
 
 const section = new Section(
   {
@@ -80,10 +127,16 @@ popupAdd.setEventListeners();
 const userInfo = new UserInfo({
   profileNameSelector: ".profile__name",
   profileJobSelector: ".profile__occupation",
+  profileImgSelector: ".profile__image",
 });
 
 const popupEdit = new PopupWithForm(".popup_edit", (data) => {
-  userInfo.setUserInfo(data);
+  api
+    .editPrifileInfo(data.name, data.occupation)
+    .then((res) => {
+      userInfo.setUserInfo(res);
+    })
+    .catch((err) => console.log(err));
 });
 popupEdit.setEventListeners();
 
@@ -112,7 +165,11 @@ addButton.addEventListener("click", () => {
   formValidators[addForm.getAttribute("name")].resetValidation();
 });
 
-const popupProfileImg = new PopupWithForm(".popup_profile-img");
+const popupProfileImg = new PopupWithForm(".popup_profile-img", (data) => {
+  api.editPrifileImg(data).then((res) => {
+    userInfo.setUserInfo(res);
+  });
+});
 popupProfileImg.setEventListeners();
 
 profilePicEditButton.addEventListener("click", () => {
