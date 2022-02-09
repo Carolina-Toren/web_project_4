@@ -8,7 +8,7 @@ export const inputFullName = document.querySelector("#name-input");
 export const inputOccupation = document.querySelector("#occupation-input");
 export const editButton = document.querySelector(".profile__edit-button");
 export const inputProfileImg = document.querySelector("#profileImg-input");
-export const profileImgform = document.querySelector("#confirmation_form");
+export const profileImgform = document.querySelector("#progile-img_form");
 
 export const addForm = document.querySelector("#add_form");
 export const addButton = document.querySelector(".profile__add-button");
@@ -18,7 +18,6 @@ export const addSaveBtn = document.querySelector("#add-save-btn");
 export const profileImgSaveBtn = document.querySelector("#profile-img-save-btn");
 export const deleteConfirmBtn = document.querySelector("#delete-confirm-btn");
 
-export const formValidators = {};
 export const formList = {};
 
 export const formSettings = {

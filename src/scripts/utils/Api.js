@@ -1,9 +1,6 @@
 const customFetch = (url, headers) =>
-  fetch(url, headers)
-    .then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)))
-    .catch((err) => {
-      console.log(err);
-    });
+  fetch(url, headers).then((res) => (res.ok ? res.json() : Promise.reject(res.statusText)));
+
 export default class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -17,11 +14,13 @@ export default class Api {
   getUserInfo() {
     return customFetch(`${this._baseUrl}/users/me`, { headers: this._headers });
   }
+
   getUserImg() {
     return customFetch(`${this._baseUrl}/users/me/avatar`, {
       headers: this._headers,
     });
   }
+
   createCard(name, link) {
     const data = { name, link };
     return customFetch(`${this._baseUrl}/cards`, {

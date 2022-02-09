@@ -7,28 +7,30 @@ import {
   profilePic,
   profilePicEditButton,
   profileImgform,
-  logoImage,
   photoTemplate,
+  logoImage,
   profileForm,
   inputFullName,
   inputOccupation,
   editButton,
   addForm,
   addButton,
-  formSettings,
-  formValidators,
   editSaveBtn,
   addSaveBtn,
   profileImgSaveBtn,
   deleteConfirmBtn,
 } from "../scripts/utils/contants";
-import Card from "../scripts/compenents/Card.js";
-import PopupDeleteCard from "../scripts/compenents/PopupDeleteCard";
-import FormValidator from "../scripts/compenents/FormValidator.js";
-import PopupWithImage from "../scripts/compenents/PopupWithImage.js";
-import PopupWithForm from "../scripts/compenents/PopupWithForm.js";
-import UserInfo from "../scripts/compenents/UserInfo.js";
-import Section from "../scripts/compenents/Section.js";
+import Card from "../scripts/components/Card.js";
+import PopupDeleteCard from "../scripts/components/PopupDeleteCard";
+import FormValidator from "../scripts/components/FormValidator.js";
+import PopupWithImage from "../scripts/components/PopupWithImage.js";
+import PopupWithForm from "../scripts/components/PopupWithForm.js";
+import UserInfo from "../scripts/components/UserInfo.js";
+import Section from "../scripts/components/Section.js";
+
+///////////////////////
+//////// API///////////
+//////////////////////
 
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-12",
@@ -40,48 +42,15 @@ const api = new Api({
 
 let userId;
 
-Promise.all([api.getInitialCards(), api.getUserInfo()]).then(([cardData, userData]) => {
-  userId = userData._id;
-  section.render(cardData);
-  userInfo.setUserInfo({ name: userData.name, about: userData.about, avatar: userData.avatar });
-});
-
-const handleDeleteImgForm = (cardId, cardToDelete) => {
-  confirmDelete.setAction(() => {
-    deleteConfirmBtn.textContent = "Deleting";
-
-    api
-      .deleteCard(cardId)
-      .then(() => {
-        cardToDelete.remove();
-        cardToDelete = null;
-      })
-
-      .catch((err) => console.log(err));
+Promise.all([api.getInitialCards(), api.getUserInfo()])
+  .then(([cardsData, userData]) => {
+    userId = userData._id;
+    section.render(cardsData);
+    userInfo.setUserInfo({ name: userData.name, about: userData.about, avatar: userData.avatar });
+  })
+  .catch((err) => {
+    console.log(`Error: ${err}`);
   });
-  deleteConfirmBtn.textContent = "Yes";
-};
-
-const handleLikeClick = (cardId, cardBtn, likeState, likeCounter) => {
-  if (likeState) {
-    api
-      .likeCard(cardId)
-      .then((res) => {
-        cardBtn.classList.toggle("photo-feed__card-button_not-active");
-        cardBtn.classList.toggle("photo-feed__card-button_active");
-        likeCounter.textContent = res.likes.length;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  } else {
-    api.dislikeCard(cardId).then((res) => {
-      cardBtn.classList.toggle("photo-feed__card-button_not-active");
-      cardBtn.classList.toggle("photo-feed__card-button_active");
-      likeCounter.textContent = res.likes.length;
-    });
-  }
-};
 
 profilePic.src = profilepicSrc;
 profilePicEditButton.src = profilePicEditButtonSrc;
@@ -92,35 +61,88 @@ popupPhoto.setEventListeners();
 const confirmDelete = new PopupDeleteCard(".popup_confirmation");
 confirmDelete.setEventListeners();
 
-const generateCard = (data) => {
-  return new Card(
-    data,
-    userId,
-    photoTemplate,
-    popupPhoto.open,
-    confirmDelete.open,
-    handleDeleteImgForm,
-    handleLikeClick
-  );
-};
-
-const section = new Section(
-  {
-    renderer: (data) => {
-      const card = generateCard(data);
-      section.addItem(card.createCard());
+function generateCard(data) {
+  const card = new Card({
+    data: data,
+    user: userId,
+    photoTemplate: photoTemplate,
+    handleCardClick: (evt) => {
+      evt.preventDefault();
+      const target = evt.target;
+      const link = target.src;
+      const name = target.alt;
+      popupPhoto.open(link, name);
+      popupPhoto.setEventListeners();
     },
-  },
-  ".photo-feed__grid"
-);
-
-const popupAdd = new PopupWithForm(".popup_add", (data) => {
-  api.createCard(data.title, data.imglink).then((res) => {
-    const card = generateCard(res);
-
-    section.addItem(card.createCard());
+    handleDeleteCard: (cardId) => {
+      confirmDelete.open();
+      confirmDelete.setAction(() => {
+        deleteConfirmBtn.textContent = "Deleting...";
+        api
+          .deleteCard(cardId)
+          .then(() => {
+            card.removeCard();
+          })
+          .catch((err) => {
+            console.log(`Error: ${err}`);
+          })
+          .finally(() => {
+            deleteConfirmBtn.textContent = "Yes";
+          });
+      });
+    },
+    handleLikeClick: (cardId) => {
+      const isLiked = card.isLiked();
+      if (isLiked) {
+        api
+          .dislikeCard(cardId)
+          .then((res) => {
+            card.setLikes(res.likes);
+          })
+          .catch((err) => {
+            console.log(`Error: ${err}`);
+          });
+      } else {
+        api
+          .likeCard(cardId)
+          .then((res) => {
+            card.setLikes(res.likes);
+          })
+          .catch((err) => {
+            console.log(`Error: ${err}`);
+          });
+      }
+    },
   });
-});
+  const photofeed = card.createCard();
+  return photofeed;
+}
+
+const section = new Section((data) => {
+  section.addItem(generateCard(data));
+}, ".photo-feed__grid");
+
+const popupAdd = new PopupWithForm(
+  ".popup_add",
+  (data) => {
+    popupAdd.showLoading();
+    api
+      .createCard(data.title, data.imglink)
+      .then((res) => {
+        const card = generateCard(res);
+        section.addItem(card);
+      })
+      .catch((res) => {
+        console.log(res);
+      })
+      .finally(() => {
+        popupAdd.close();
+        popupAdd.hideLoading();
+      });
+  },
+  addSaveBtn.textContent,
+  "Creating..."
+);
 
 popupAdd.setEventListeners();
 
@@ -130,15 +152,40 @@ const userInfo = new UserInfo({
   profileImgSelector: ".profile__image",
 });
 
-const popupEdit = new PopupWithForm(".popup_edit", (data) => {
-  api
-    .editPrifileInfo(data.name, data.occupation)
-    .then((res) => {
-      userInfo.setUserInfo(res);
-    })
-    .catch((err) => console.log(err));
-});
+const popupEdit = new PopupWithForm(
+  ".popup_edit",
+  (data) => {
+    popupEdit.showLoading();
+    api
+      .editPrifileInfo(data.name, data.occupation)
+      .then((res) => {
+        userInfo.setUserInfo(res);
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      })
+
+      .finally(() => {
+        popupEdit.close();
+        popupEdit.hideLoading();
+      });
+  },
+  editSaveBtn.textContent,
+  "Saving..."
+);
+
 popupEdit.setEventListeners();
+
+const formSettings = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save-button",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+const formValidators = {};
 
 const enableValidation = (settings) => {
   const formsList = Array.from(document.querySelectorAll(settings.formSelector));
@@ -149,7 +196,6 @@ const enableValidation = (settings) => {
     validator.enableValidation();
   });
 };
-
 enableValidation(formSettings);
 
 editButton.addEventListener("click", () => {
@@ -165,11 +211,28 @@ addButton.addEventListener("click", () => {
   formValidators[addForm.getAttribute("name")].resetValidation();
 });
 
-const popupProfileImg = new PopupWithForm(".popup_profile-img", (data) => {
-  api.editPrifileImg(data).then((res) => {
-    userInfo.setUserInfo(res);
-  });
-});
+const popupProfileImg = new PopupWithForm(
+  ".popup_profile-img",
+  (data) => {
+    popupProfileImg.showLoading();
+
+    api
+      .editPrifileImg(data)
+      .then((res) => {
+        userInfo.setUserInfo(res);
+      })
+      .catch((err) => {
+        console.log(`Error: ${err}`);
+      })
+
+      .finally(() => {
+        popupProfileImg.close();
+        popupProfileImg.hideLoading();
+      });
+  },
+  profileImgSaveBtn.textContent,
+  "Saving..."
+);
 popupProfileImg.setEventListeners();
 
 profilePicEditButton.addEventListener("click", () => {

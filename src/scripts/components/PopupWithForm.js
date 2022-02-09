@@ -1,12 +1,14 @@
 import Popup from "./Popup";
 
 export default class PopupWithForm extends Popup {
-  constructor(popupSelector, submitHandler) {
+  constructor(popupSelector, handleSubmit, buttonText, loadingButtonText) {
     super(popupSelector);
-    this._submitHandler = submitHandler;
+    this._handleSubmit = handleSubmit;
     this._form = this._popup.querySelector(".popup__form");
     this._inputs = this._popup.querySelectorAll(".popup__input");
     this._submitBtn = this._popup.querySelector(".popup__save-button");
+    this._buttonText = buttonText;
+    this._loadingButtonText = loadingButtonText;
   }
 
   _getInputValues() {
@@ -21,20 +23,18 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {
     this._form.addEventListener("submit", (event) => {
       event.preventDefault();
-      if (this._submitBtn.textContent === "Save") {
-        this._submitBtn.textContent = "Saving...";
-      } else if (this._submitBtn.textContent === "Create") {
-        this._submitBtn.textContent = "Creating...";
-      }
-      this._submitHandler(this._getInputValues());
-      this.close();
+      this._handleSubmit(this._getInputValues());
     });
-    if (this._submitBtn.textContent === "Saving...") {
-      this._submitBtn.textContent = "Save";
-    } else if (this._submitBtn.textContent === "Creating...") {
-      this._submitBtn.textContent = "Create";
-    }
+
     super.setEventListeners();
+  }
+
+  showLoading() {
+    this._submitBtn.textContent = this._loadingButtonText;
+  }
+
+  hideLoading() {
+    this._submitBtn.textContent = this._buttonText;
   }
 
   close() {
