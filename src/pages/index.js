@@ -56,10 +56,18 @@ profilePic.src = profilepicSrc;
 profilePicEditButton.src = profilePicEditButtonSrc;
 logoImage.src = logoSrc;
 
+///////////////////////
+///// Photo Popup//////
+//////////////////////
+
 const popupPhoto = new PopupWithImage(".popup_photo");
 popupPhoto.setEventListeners();
 const confirmDelete = new PopupDeleteCard(".popup_confirmation");
 confirmDelete.setEventListeners();
+
+///////////////////////
+////Creating cards////
+//////////////////////
 
 function generateCard(data) {
   const card = new Card({
@@ -118,6 +126,10 @@ function generateCard(data) {
   return photofeed;
 }
 
+///////////////////////
+////Creating Section///
+//////////////////////
+
 const section = new Section((data) => {
   section.addItem(generateCard(data));
 }, ".photo-feed__grid");
@@ -152,6 +164,10 @@ const userInfo = new UserInfo({
   profileImgSelector: ".profile__image",
 });
 
+///////////////////////
+//////Edit Popup///////
+//////////////////////
+
 const popupEdit = new PopupWithForm(
   ".popup_edit",
   (data) => {
@@ -176,6 +192,10 @@ const popupEdit = new PopupWithForm(
 
 popupEdit.setEventListeners();
 
+///////////////////////
+//////Validation//////
+//////////////////////
+
 const formSettings = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -198,6 +218,10 @@ const enableValidation = (settings) => {
 };
 enableValidation(formSettings);
 
+///////////////////////
+////Button Listeners///
+//////////////////////
+
 editButton.addEventListener("click", () => {
   const data = userInfo.getUserInfo();
   popupEdit.open();
@@ -210,6 +234,15 @@ addButton.addEventListener("click", () => {
   popupAdd.open();
   formValidators[addForm.getAttribute("name")].resetValidation();
 });
+
+profilePicEditButton.addEventListener("click", () => {
+  popupProfileImg.open();
+  formValidators[profileImgform.getAttribute("name")].resetValidation();
+});
+
+///////////////////////////
+//////Profile img popup////
+//////////////////////////
 
 const popupProfileImg = new PopupWithForm(
   ".popup_profile-img",
@@ -234,8 +267,3 @@ const popupProfileImg = new PopupWithForm(
   "Saving..."
 );
 popupProfileImg.setEventListeners();
-
-profilePicEditButton.addEventListener("click", () => {
-  popupProfileImg.open();
-  formValidators[profileImgform.getAttribute("name")].resetValidation();
-});
