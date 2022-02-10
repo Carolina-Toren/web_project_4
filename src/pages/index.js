@@ -19,7 +19,7 @@ import {
   addSaveBtn,
   profileImgSaveBtn,
   deleteConfirmBtn,
-} from "../scripts/utils/contants";
+} from "../scripts/utils/constants";
 import Card from "../scripts/components/Card.js";
 import PopupDeleteCard from "../scripts/components/PopupDeleteCard";
 import FormValidator from "../scripts/components/FormValidator.js";
@@ -62,8 +62,8 @@ logoImage.src = logoSrc;
 
 const popupPhoto = new PopupWithImage(".popup_photo");
 popupPhoto.setEventListeners();
-const confirmDelete = new PopupDeleteCard(".popup_confirmation");
-confirmDelete.setEventListeners();
+const deleteConfirmationPopup = new PopupDeleteCard(".popup_confirmation");
+deleteConfirmationPopup.setEventListeners();
 
 ///////////////////////
 ////Creating cards////
@@ -83,8 +83,8 @@ function generateCard(data) {
       popupPhoto.setEventListeners();
     },
     handleDeleteCard: (cardId) => {
-      confirmDelete.open();
-      confirmDelete.setAction(() => {
+      deleteConfirmationPopup.open();
+      deleteConfirmationPopup.setAction(() => {
         deleteConfirmBtn.textContent = "Deleting...";
         api
           .deleteCard(cardId)
@@ -143,12 +143,12 @@ const popupAdd = new PopupWithForm(
       .then((res) => {
         const card = generateCard(res);
         section.addItem(card);
+        popupAdd.close();
       })
       .catch((res) => {
         console.log(res);
       })
       .finally(() => {
-        popupAdd.close();
         popupAdd.hideLoading();
       });
   },
@@ -176,13 +176,13 @@ const popupEdit = new PopupWithForm(
       .editPrifileInfo(data.name, data.occupation)
       .then((res) => {
         userInfo.setUserInfo(res);
+        popupEdit.close();
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
       })
 
       .finally(() => {
-        popupEdit.close();
         popupEdit.hideLoading();
       });
   },
@@ -253,13 +253,13 @@ const popupProfileImg = new PopupWithForm(
       .editPrifileImg(data)
       .then((res) => {
         userInfo.setUserInfo(res);
+        popupProfileImg.close();
       })
       .catch((err) => {
         console.log(`Error: ${err}`);
       })
 
       .finally(() => {
-        popupProfileImg.close();
         popupProfileImg.hideLoading();
       });
   },

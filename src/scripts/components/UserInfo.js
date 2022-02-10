@@ -1,5 +1,3 @@
-import { profileImgform } from "../utils/contants";
-
 export default class UserInfo {
   constructor({ profileNameSelector, profileJobSelector, profileImgSelector }) {
     this._profileName = document.querySelector(profileNameSelector);
